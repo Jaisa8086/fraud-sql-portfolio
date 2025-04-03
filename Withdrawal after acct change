@@ -1,0 +1,25 @@
+WITH risky_withdrawals AS (
+    
+    SELECT
+    ac.user_id AS user_id
+    ,t.amount
+    ,t.transaction_timestamp
+    ,ac.change_timestamp
+    ,ac.change_type
+FROM fraud_training_db.identity_fraud.account_changes ac
+JOIN fraud_training_db.identity_fraud.transactions t
+USING (user_id)
+WHERE 1=1
+AND t.transaction_type = 'withdrawal'
+AND t.transaction_timestamp > ac.change_timestamp
+AND t.transaction_timestamp <= ac.change_timestamp + INTERVAL '30 minute'
+ORDER BY ac.user_id, ac.change_timestamp
+
+)
+
+SELECT
+    user_id
+    ,COUNT(*) AS risky_withdrawal_count
+FROM risky_withdrawals
+GROUP BY user_id
+ORDER BY risky_withdrawal_count DESC;
