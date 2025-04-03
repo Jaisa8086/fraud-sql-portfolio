@@ -1,0 +1,14 @@
+SELECT
+     ipaddress
+    ,COUNT(DISTINCT id) AS user_count
+FROM geoipinfo g
+JOIN users u
+    ON g.entityid = u.id
+WHERE 1=1
+    AND /* add filter here */
+    AND /* add filter here */
+GROUP BY
+    ipaddress
+HAVING COUNT(DISTINCT entityid) > 3
+ORDER BY
+    user_count DESC;
