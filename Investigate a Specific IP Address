@@ -1,0 +1,13 @@
+SELECT DISTINCT
+     CONCAT(u.firstname, ' ', u.lastname) AS name
+    ,CONCAT('https://yourdomain.com/admin/users/user/', g.entityid) AS user_link -- Creates a link to the user account
+    ,u.last_login::DATE AS last_login -- Extract's the date only YYYY-MM-DD
+FROM geoipinfo g
+JOIN users u
+    ON g.entityid = u.id
+WHERE 1=1
+    AND ipaddress = 'enter ip address here'
+    AND ADD FILTER HERE
+    AND ADD FILTER HERE
+ORDER BY
+    last_login DESC;
