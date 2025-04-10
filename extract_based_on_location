@@ -1,0 +1,21 @@
+SELECT 
+     id AS agent_id
+    , INITCAP(CONCAT(first_name, ' ', last_name)) AS account_name
+    , CONCAT('https://www.example.com/admin/users/user/', agent_id) AS account_link
+    , UPPER(country) AS account_country
+    , last_login_country
+    , state AS account_state
+    , INITCAP(street) AS account_street
+    , INITCAP(city) AS account_city
+    , created_on AS approved_on
+FROM 
+    your_database.your_schema.users
+    
+WHERE 1=1
+    AND account_country = 'AU'
+    --AND account_state = 'OK'
+    --AND account_street = 
+    --AND account_city = 'New York'
+    --AND DATEDIFF('day', approved_on, CURRENT_DATE()) <= 14
+    AND approved_on BETWEEN DATE('2023-04-01') AND DATE('2023-06-15')
+    --LIMIT 80;
